@@ -28,6 +28,75 @@ The webhook requirements are HTTPS and public url.  At this time, demo will a bi
 * fulfillmentText (String) Text to be pronounced to the user or shown on the screen.
 * fulfillmentMessages (Object) Collection of rich messages to show the user.
 
+#### Requirements
+
+https://cloud.google.com/dialogflow/es/docs/fulfillment-webhook
+
+#### Maven
+
+```
+        <dependency>
+            <groupId>com.google.apis</groupId>
+            <artifactId>google-api-services-dialogflow</artifactId>
+            <version>v2-rev124-1.25.0</version>
+        </dependency>
+```
+
+#### Setup
+
+* Replace the Jackson2 object factory
+
+#### Webhook Support
+
+* Use https://smee.io/
+  Note: DO NOT use in Production
+
+
+```
+sudo apt install npm
+sudo npm install --global smee-client
+```  
+
+* can also use https://webhook.site/
+
+#### Usage
+
+```properties
+smee --help
+```  
+
+```properties
+smee -u https://smee.io/8COooEqi9x0m8H3 -t http://localhost:8080/dialogflow-webhook
+```
+
+#### Bug
+
+There is a bug with the version "1.2.2".  
+
+Content-length is wrong.  See https://github.com/probot/smee-client/pull/122/files
+
+```
+sudo vi ./usr/local/lib/node_modules/smee-client/index.js
+
+apply fix manually
+``` 
+
+Note: the bug fixes the inbound request
+- although the server is respoding properly with 200, Dialogflow is getting
+
+```
+
+"webhookStatus": {
+    "webhookStatus": {
+      "code": 3,
+      "message": "Webhook call failed. Error: Failed to parse webhook JSON response: Expect message object but got: null."
+    },
+    "webhookUsed": true
+  },
+```
+
+Other webhook site test works however. So either something with smee code, or firewall.  I assume its SMEE code.
+
 ### API
 
 ![API Flow](https://cloud.google.com/dialogflow/es/docs/images/api-flow.svg)
@@ -158,7 +227,6 @@ If behind a corporate firewall, ensure to pass in the java properties in env var
 TODO
 ======
 
-* JSON conversion??  -- use GSON instead
 * logging at sdk level..
 
 
