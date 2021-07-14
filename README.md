@@ -5,6 +5,10 @@
 * JDK8
 * Maven 3
 
+## Dialogflow UI
+
+https://dialogflow.cloud.google.com
+
 
 ## Client Libraries
 
@@ -49,7 +53,9 @@ https://cloud.google.com/dialogflow/es/docs/fulfillment-webhook
 #### Webhook Support
 
 * Use https://smee.io/
-  Note: DO NOT use in Production
+Note: 
+* DO NOT use in Production
+* the implementation is Server Side Events (which is unidirectional).  Meaning only inbound requests.
 
 
 ```
@@ -58,6 +64,12 @@ sudo npm install --global smee-client
 ```  
 
 * can also use https://webhook.site/
+
+##### Ngrok
+
+https://dashboard.ngrok.com/get-started/setup
+
+This is better since it is both inbound and outbound.  May not work behind corporate firewall.
 
 #### Usage
 
